@@ -16,7 +16,7 @@ describe("ElasticSearchService", () => {
       "elasticSearch.host": "fake",
       "elasticSearch.username": "fake",
       "elasticSearch.password": "fake",
-      "elasticSearch.enabled": "yes",
+      "elasticSearch.enabled": true,
       "elasticSearch.defaultIndex": "fake",
     }),
   };

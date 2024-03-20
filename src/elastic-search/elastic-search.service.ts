@@ -53,10 +53,7 @@ export class ElasticSearchService implements OnModuleInit {
       this.configService.get<string>("elasticSearch.username") || "";
     this.password =
       this.configService.get<string>("elasticSearch.password") || "";
-    this.esEnabled =
-      this.configService.get<string>("elasticSearch.enabled") === "yes"
-        ? true
-        : false;
+    this.esEnabled = this.configService.get<boolean>("elasticSearch.enabled");
     this.refresh =
       this.configService.get<"false" | "wait_for">("elasticSearch.refresh") ||
       "false";

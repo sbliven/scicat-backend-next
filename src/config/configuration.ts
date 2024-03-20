@@ -14,8 +14,9 @@ const configuration = () => {
     process.env.CREATE_DATASET_WITH_PID_GROUPS || ("" as string);
   const createDatasetPrivilegedGroups =
     process.env.CREATE_DATASET_PRIVILEGED_GROUPS || ("" as string);
-  const datasetCreationValidationEnabled =
-    process.env.DATASET_CREATION_VALIDATION_ENABLED || false;
+  const datasetCreationValidationEnabled = boolean(
+    process.env.DATASET_CREATION_VALIDATION_ENABLED,
+  );
   const datasetCreationValidationRegex =
     process.env.DATASET_CREATION_VALIDATION_REGEX || ("" as string);
 
@@ -145,10 +146,7 @@ const configuration = () => {
       },
     },
     logbook: {
-      enabled:
-        process.env.LOGBOOK_ENABLED && process.env.LOGBOOK_ENABLED === "yes"
-          ? true
-          : false,
+      enabled: boolean(process.env.LOGBOOK_ENABLED),
       baseUrl:
         process.env.LOGBOOK_BASE_URL ?? "http://localhost:3030/scichatapi",
     },
@@ -166,13 +164,13 @@ const configuration = () => {
     port: parseInt(process.env.PORT || "3000", 10),
     publicURLprefix: process.env.PUBLIC_URL_PREFIX,
     rabbitMq: {
-      enabled: process.env.RABBITMQ_ENABLED ?? "no",
+      enabled: boolean(process.env.RABBITMQ_ENABLED),
       hostname: process.env.RABBITMQ_HOSTNAME,
       username: process.env.RABBITMQ_USERNAME,
       password: process.env.RABBITMQ_PASSWORD,
     },
     elasticSearch: {
-      enabled: process.env.ELASTICSEARCH_ENABLED ?? "no",
+      enabled: boolean(process.env.ELASTICSEARCH_ENABLED),
       username: process.env.ES_USERNAME,
       password: process.env.ES_PASSWORD,
       host: process.env.ES_HOST,

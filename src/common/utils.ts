@@ -2,7 +2,7 @@
 import { Logger } from "@nestjs/common";
 import { inspect } from "util";
 import { DateTime } from "luxon";
-import { format, unit } from "mathjs";
+import { format, unit, boolean } from "mathjs";
 import { Expression, FilterQuery, Model, PipelineStage } from "mongoose";
 import { DatasetType } from "src/datasets/dataset-type.enum";
 import {
@@ -872,18 +872,11 @@ export const samplesFullQueryDescriptionFields =
 }\n \
   </pre>';
 
+/**
+ * @deprecated Use mathjs.boolean() instead
+ */
 export const parseBoolean = (v: unknown): boolean => {
-  switch (v) {
-    case true:
-    case "true":
-    case 1:
-    case "1":
-    case "on":
-    case "yes":
-      return true;
-    default:
-      return false;
-  }
+  return boolean(v);
 };
 
 export const replaceLikeOperator = <T>(filter: IFilters<T>): IFilters<T> => {

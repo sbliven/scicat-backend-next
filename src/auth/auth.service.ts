@@ -6,7 +6,8 @@ import { User } from "src/users/schemas/user.schema";
 import { UsersService } from "../users/users.service";
 import { Request } from "express";
 import { OidcConfig } from "src/config/configuration";
-import { flattenObject, parseBoolean } from "src/common/utils";
+import { flattenObject } from "src/common/utils";
+import { boolean } from "mathjs";
 import { Issuer } from "openid-client";
 import { ReturnedAuthLoginDto } from "./dto/returnedLogin.dto";
 import { ReturnedUserDto } from "src/users/dto/returned-user.dto";
@@ -84,7 +85,7 @@ export class AuthService {
     }
     if (user?.authStrategy === "oidc") {
       const oidcConfig = this.configService.get<OidcConfig>("oidc");
-      const autoLogout: boolean = parseBoolean(oidcConfig?.autoLogout || true);
+      const autoLogout: boolean = boolean(oidcConfig?.autoLogout || true);
 
       if (autoLogout) {
         if (logoutURL) {
