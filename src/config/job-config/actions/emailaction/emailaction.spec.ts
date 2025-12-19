@@ -53,7 +53,7 @@ const mockDataset: DatasetClass = {
   isPublished: false,
   datasetlifecycle: {
     id: "testId",
-    archivable: true,
+    archivable: false,
     retrievable: true,
     publishable: true,
     dateOfDiskPurging: new Date("2031-11-11T12:29:02.083Z"),
@@ -373,23 +373,31 @@ describe("Email Template", () => {
       const datasets: DatasetClass[] = [
         {
           ...mockDataset,
-          datasetlifecycle: {
-            ...mockDataset.datasetlifecycle,
-            archivable: true,
-            retrievable:
-              statusCode != "finishedUnsuccessful" && jobType == "retrieve",
-          },
+          datasetlifecycle: { ...mockDataset.datasetlifecycle },
         },
         {
           ...mockDataset,
-          datasetlifecycle: {
-            ...mockDataset.datasetlifecycle,
-            archivable:
-              statusCode != "finishedUnsuccessful" && jobType == "archive",
-            retrievable: true,
-          },
+          datasetlifecycle: { ...mockDataset.datasetlifecycle },
         },
       ];
+
+      // Archive jobs start archivable and become retrievable
+      if (jobType == "archive") {
+        datasets[0].datasetlifecycle!.archivable = statusCode === "jobSubmitted";
+        datasets[0].datasetlifecycle!.retrievable = statusCode !== "jobSubmitted";
+        datasets[1].datasetlifecycle!.archivable = statusCode === "jobSubmitted";
+        datasets[1].datasetlifecycle!.retrievable = statusCode !== "jobSubmitted";
+      }
+      // Simulate an error
+      if (statusCode === "finishedUnsuccessful") {
+        if( jobType === "archive") {
+          datasets[1].datasetlifecycle!.retrievable = false;
+          datasets[1].datasetlifecycle!.archivable = true;
+        } else if (jobType === "retrieve") {
+          datasets[1].datasetlifecycle!.retrievable = false;
+          datasets[1].datasetlifecycle!.archivable = false;
+        }
+      }
 
       const context = {
         request: jobToCreateDto(job),

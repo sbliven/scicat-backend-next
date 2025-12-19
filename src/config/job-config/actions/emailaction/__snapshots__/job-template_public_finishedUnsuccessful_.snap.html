@@ -82,6 +82,13 @@
       color: #9e1a1a;
     }
 
+    .retrievable-false {
+      color: #9e1a1a;
+      font-weight: bold;
+    }
+    tr:has(.retrievable-false) {
+      background-color: #fadada;
+    }
   </style>
 </head>
 
@@ -104,13 +111,13 @@
           <th>Size</th>
       </tr>
       <tr>
-          <td><a href="/datasets/testPid%2F12345">testPid/12345</a></td>
+          <td><a href="https://discovery.psi.ch/datasets/testPid%2F12345">testPid/12345</a></td>
           <td>Test Dataset</td>
           <td>/nfs/groups/beamlines/test/123456</td>
           <td>50 GiB</td>
       </tr>
       <tr>
-          <td><a href="/datasets/testPid%2F12345">testPid/12345</a></td>
+          <td><a href="https://discovery.psi.ch/datasets/testPid%2F12345">testPid/12345</a></td>
           <td>Test Dataset</td>
           <td>/nfs/groups/beamlines/test/123456</td>
           <td>50 GiB</td>
