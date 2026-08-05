@@ -88,9 +88,7 @@ export class OrigDatablocksV4Controller {
 
   async generateOrigDatablockInstanceForPermissions(
     origdatablock:
-      | CreateOrigDatablockDto
-      | OutputOrigDatablockDto
-      | OrigDatablock,
+      CreateOrigDatablockDto | OutputOrigDatablockDto | OrigDatablock,
   ): Promise<OrigDatablock> {
     const origDatablockInstance = new OrigDatablock();
     origDatablockInstance.datasetId = origdatablock.datasetId || "";
@@ -791,8 +789,8 @@ export class OrigDatablocksV4Controller {
       Action.OrigdatablockUpdate,
     );
     const unmodifiedSince = parseDate(request.headers["if-unmodified-since"]);
-    return this.origDatablocksService.findByIdAndUpdateDatasetSizeAndFileCount(
-      id,
+    return this.origDatablocksService.updateOneAndUpdateDatasetSizeAndFileCount(
+      { _id: id },
       updateOrigDatablockDto,
       unmodifiedSince,
     );
