@@ -789,7 +789,6 @@ export class CaslAbilityFactory {
         can(Action.ProposalsAttachmentCreate, ProposalClass);
         can(Action.ProposalsAttachmentUpdate, ProposalClass);
         can(Action.ProposalsAttachmentDelete, ProposalClass);
-        can(Action.ProposalsDatasetRead, ProposalClass);
       } else if (
         user.currentGroups.some((g) => {
           return this.accessGroups?.proposal.includes(g);
@@ -806,7 +805,7 @@ export class CaslAbilityFactory {
         can(Action.ProposalsAttachmentCreate, ProposalClass);
         can(Action.ProposalsAttachmentUpdate, ProposalClass);
         can(Action.ProposalsAttachmentDelete, ProposalClass);
-        can(Action.ProposalsDatasetRead, ProposalClass);
+        cannot(Action.ProposalsDatasetRead, ProposalClass);
       } else if (user) {
         /**
          * authenticated users
@@ -819,7 +818,7 @@ export class CaslAbilityFactory {
         cannot(Action.ProposalsAttachmentCreate, ProposalClass);
         cannot(Action.ProposalsAttachmentUpdate, ProposalClass);
         cannot(Action.ProposalsAttachmentDelete, ProposalClass);
-        cannot(Action.ProposalsDatasetRead, ProposalClass);
+        can(Action.ProposalsDatasetRead, ProposalClass);
       }
 
       if (
