@@ -5,6 +5,7 @@ import { JobConfigService } from "src/config/job-config/jobconfig.service";
 import { DatasetClass } from "src/datasets/schemas/dataset.schema";
 import { Action } from "./action.enum";
 import { CaslAbilityFactory } from "./casl-ability.factory";
+import { AttachmentAbility } from "./abilities/attachments.ability";
 import { DatasetAbility } from "./abilities/datasets.ability";
 import { OrigDatablockAbility } from "./abilities/origdatablocks.ability";
 
@@ -15,6 +16,7 @@ describe("CaslAbilityFactory", () => {
       new CaslAbilityFactory(
         configService,
         new JobConfigService({}, {}, configService),
+        new AttachmentAbility(configService),
         new DatasetAbility(configService),
         new OrigDatablockAbility(configService),
       ),
@@ -39,6 +41,7 @@ describe("CaslAbilityFactory", () => {
       return new CaslAbilityFactory(
         configService,
         { allJobConfigs: {} } as unknown as JobConfigService,
+        new AttachmentAbility(configService),
         new DatasetAbility(configService),
         new OrigDatablockAbility(configService),
       );
